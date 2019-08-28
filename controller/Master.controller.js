@@ -92,14 +92,14 @@ sap.ui.define([
 
     refreshData: function () {
     
-
+      var that = this;
       if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {
         $.when(offline.forceCheckIfOnlineAndLoggedIn()).then(function(){
-          this.getView().setBusy(true);
+          that.getView().setBusy(true);
           setTimeout(function(){
             var oEventBus = sap.ui.getCore().getEventBus();
             oEventBus.publish("OfflineStore", "Refreshing");
-            this.getView().setBusy(false);
+            that.getView().setBusy(false);
           },100);
         });
       } else {
