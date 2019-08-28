@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>DialogQRTitle}" contentHeight="80%" afterClose="qrDialogAfterClose" stretchOnPhone="true">
+  <content>
+      <Panel>
+        <core:HTML id='preview' content="&lt;video&gt;Your browser does not support the video tag.&lt;/video&gt;" />
+      </Panel>
+  </content>
+  <buttons>
+    <Button text="{i18n>NOTI_CLOSE}" press="qrClose" width="100px" type="Reject"/>
+  </buttons>
+  </Dialog>
+</core:FragmentDefinition>

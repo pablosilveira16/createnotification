@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table">
+	<Page id="EquipSet" title="{i18n>Filter}">
+		<IconTabBar id="equipIconTabFilter" expandable="false" expanded="true" class="sapUiResponsiveContentPadding" selectedKey="{/FilterSelected}">
+			<items>
+				<IconTabFilter text="{i18n>ByBasicData}" key="BasicData">
+					<VBox>
+						<Text text="{i18n>SearchByBDDescription}"></Text>
+					</VBox>
+					<f:Form editable="true">
+						<f:layout>
+							<f:ResponsiveGridLayout/>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer>
+								<f:formElements>
+									<f:FormElement label="{/EQUNR/Text}">
+										<f:fields>
+											<Input type="Text" value="{/EQUNR/Low}" enabled="{= ${/EQUNR/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="18"/>
+											<Input type="Text" value="{/EQUNR/High}" enabled="{= ${/EQUNR/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="18"/>
+											<Button icon="{= ${/EQUNR/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement label="{/STRNO/Text}">
+										<f:fields>
+											<Input type="Text" value="{/STRNO/Low}" enabled="{= ${/STRNO/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="30"/>
+											<Input type="Text" value="{/STRNO/High}" enabled="{= ${/STRNO/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="30"/>
+											<Button icon="{= ${/STRNO/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement label="{/TIDNR/Text}" visible="false">
+										<f:fields>
+											<Input type="Text" value="{/TIDNR/Low}" enabled="{= ${/TIDNR/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="25"/>
+											<Input type="Text" value="{/TIDNR/High}" enabled="{= ${/TIDNR/Conditions}.length === 0}" showValueHelp="false"
+												valueHelpRequest="handleValueHelp" maxLength="25"/>
+											<Button icon="{= ${/TIDNR/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer/>
+					<Button text="{i18n>Accept}" type="Emphasized" press="acceptSearch"/>
+					<Button text="{i18n>Cancel}" type="Emphasized" press="cancelSearch"/>
+					<Button text="{i18n>Clean}" type="Emphasized" press="cleanSearch"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>

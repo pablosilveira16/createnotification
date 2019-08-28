@@ -1,0 +1,165 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:c="sap.ui.core" xmlns="sap.m"
+	controllerName="com.blueboot.createnotification.controller.Notification">
+	<Page class="sapUiFioriObjectPage" title="{i18n>NOTI_PAGE_TITLE}" showNavButton="{device>/isPhone}" navButtonPress="handleNavButtonPress">
+		<!--
+    <headerContent>
+      <Button icon="sap-icon://delete" press="handleDeleteData"></Button>
+    </headerContent>
+  -->
+		<l:Grid defaultSpan="L12 M12 S12" width="auto">
+			<l:content>
+				<f:SimpleForm id="notification" minWidth="800" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					title="{i18n>NOTI_FORM_TITLE}" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+					<f:content>
+						<Label text="{i18n>EQUIP}" visible="{= ${/showHiddenNotification} &amp;&amp; ${Equipment} ? true : false }"/>
+						<Input type="Text" enabled="false" value="{Equipment}" editable="false"
+						visible="{= ${/showHiddenNotification} &amp;&amp; ${Equipment} ? true : false }"/>
+						<Label text="" visible="{= ${/showHiddenNotification} &amp;&amp; ${Equipment} ? true : false }"/>
+						<Input type="Text" enabled="false" value="{/AuxDescriptions/Equipment}" editable="false"
+						visible="{= ${/showHiddenNotification} &amp;&amp; ${Equipment} ? true : false }"/>
+						<Label text="{i18n>FUNC_LOC}" visible="{= ${/showHiddenNotification} &amp;&amp; ${FunctLoc} ? true : false }"/>
+						<Input type="Text" enabled="false" value="{FunctLoc}" editable="false"
+						visible="{= ${/showHiddenNotification} &amp;&amp; ${FunctLoc} ? true : false }"/>
+						<Label text="" visible="{= ${/showHiddenNotification} &amp;&amp; ${FunctLoc} ? true : false }"/>
+						<Input type="Text" enabled="false" value="{/AuxDescriptions/FunctLoc}" editable="false"
+						visible="{= ${/showHiddenNotification} &amp;&amp; ${FunctLoc} ? true : false }"/>
+						<Label text="{i18n>NOTI_TYPE}" required="true" visible="{= ${/showHiddenNotification} }"/>
+						<Select selectedKey="{NotifType}" items="{ path: '/NotificationTypes', sorter: [ {path: 'QMART'} ]}" allowBlank="true" forceSelection="false" placeholder="{i18n>SELECTED_EQUIP}"
+							visible="{= ${/showHiddenNotification} }" change="onTypeChange">
+							<c:Item key="{QMART}" text="{QMART} - {QMARTX}"/>
+						</Select>
+						<Label text="{i18n>NOTI_DESCRIPTION}" required="true" visible="{= ${/showHiddenNotification} }"/>
+						<Input type="Text" enabled="true" maxLength="40" editable="true" value="{ShortText}" placeholder="{i18n>NOTI_DESCRIPTION_ENTER}"
+							visible="{= ${/showHiddenNotification} }"/>
+						<Label text="{i18n>NOTI_BREAKDOWN}" visible="{= ${/showHiddenNotification} }"/>
+						<CheckBox selected="{Breakdown}" visible="{= ${/showHiddenNotification} }"/>
+						<Label text="{i18n>NOTI_GROUP}" width="100%" visible="{= ${/showHiddenNotification} }"/>
+						<Select xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" selectedKey="{Plangroup}"
+							forceSelection="false" allowBlank="true" items="{path: '/Plangroup', sorter: [ {path: 'INGRP'}]}" placeholder="{i18n>NOTI_PLANGROUP_SELECT}"
+							visible="{= ${/showHiddenNotification} }">
+							<c:Item xmlns:c="sap.ui.core" key="{INGRP}" text="{INGRP} - {INNAM}"/>
+						</Select>
+						<Label text="{i18n>NOTI_WORK_CENTER}" width="100%" visible="{= ${/showHiddenNotification} }"/>
+						<Input visible="{/showHiddenNotification}" value="{ path: 'PmWkctr', formatter: '.formatter.formatWorkCenter'}" showValueHelp="true"
+							valueHelpOnly="true" valueHelpRequest="handleWorkCentersHelp" placeholder="{i18n>SELECT_WORK_CENTER}"/>
+						<!--<Select xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m" selectedKey="{PmWkctr}" forceSelection="false" allowBlank="true"
+      items="{/WorkCenter}" placeholder="{i18n>NOTI_WORK_CENTER_SELECT}" visible="{= ${/showHiddenNotification} }">
+                <c:Item xmlns:c="sap.ui.core" key="{RId}" text="{RVal1}"/>
+            </Select>-->
+						<Label text="{i18n>NOTI_PRIORITY}" required="true" visible="{= ${/showHiddenNotification} }"/>
+						<Select selectedKey="{Priority}" forceSelection="false" allowBlank="true" items="{path: '/BindPriority', sorter: [ {path: 'PRIOK'}]}" placeholder="{i18n>NOTI_PRIORITY_SELECT}"
+							change="onPriorityChange" visible="{= ${/showHiddenNotification} }">
+							<c:Item key="{PRIOK}" text="{PRIOK} - {PRIOKX}"/>
+						</Select>
+						<Label text="{i18n>NOTI_START_DATE}" width="100%" visible="{= ${/showHiddenNotification} }"/>
+						<DateTimePicker value="{Strmlfndate}" width="100%" valueFormat="yyyyMMddHHmmss" displayFormat="MMM d, y, HH:mm:ss" visible="{= ${/showHiddenNotification} }"/>
+						<!--<Label text="{i18n>NOTI_DES_START_DATE}" width="100%" visible="{= ${/showHiddenNotification} }"/>
+						<DateTimePicker value="{Desstdate}" width="100%" displayFormat="MMM d, y, HH:mm:ss" valueFormat="yyyyMMddHHmmss" visible="{= ${/showHiddenNotification} }"/>
+						<Label text="{i18n>NOTI_DES_END_DATE}" width="100%" visible="{= ${/showHiddenNotification} }"/>
+						<DateTimePicker value="{Desenddate}" width="100%" displayFormat="MMM d, y, HH:mm:ss" valueFormat="yyyyMMddHHmmss" visible="{= ${/showHiddenNotification} }"/>-->
+						<Label text="{i18n>NOTI_COMMENTS}" width="100%" visible="{= !${/showHiddenNotification} }"/>
+						<TextArea value="{NotifLongtextSet/0/TextLine}" visible="{= !${/showHiddenNotification} }"/>
+						<Label xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core" text="{i18n>NOTIF_ATTACHMENT}" width="100%"/>
+						<sap.ui.unified:FileUploader xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:sap.ui.unified="sap.ui.unified" name="fileUploader"
+							uploadOnChange="false" sendXHR="true" useMultipart="false" uploadComplete="fileUploadComplete" style="Emphasized"
+							placeholder="{i18n>UPLOAD_PLACEHOLDER}" id="photoFileUploader" buttonText="{i18n>UPLOAD_BUTTON_TEXT}" multiple="true"
+							visible="{= !${/showHiddenNotification} }">
+							<sap.ui.unified:headerParameters>
+								<sap.ui.unified:FileUploaderParameter name="X-Requested-With" value="XMLHttpRequest"/>
+							</sap.ui.unified:headerParameters>
+						</sap.ui.unified:FileUploader>
+					</f:content>
+					<f:toolbar>
+						<Toolbar width="100%">
+							<content>
+								<Title text="{i18n>NOTI_FORM_TITLE}" width="100%"/>
+								<ToolbarSpacer/>
+								<Button visible="true" width="100px" icon="{= ${/showHiddenNotification} ? 'sap-icon://expand-group' : 'sap-icon://collapse-group' }" press="onHidden"/>
+							</content>
+						</Toolbar>
+					</f:toolbar>
+				</f:SimpleForm>
+			</l:content>
+		</l:Grid>
+		<l:Grid defaultSpan="L12 M12 S12" width="auto" visible="{= !${/showHiddenNotification} }">
+			<l:content>
+				<f:SimpleForm id="position" minWidth="800" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout"
+					title="{i18n>NOTI_FORM_POSITION}" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1" class="editableForm">
+					<f:content>
+						<Label text="{i18n>NOTI_OBJECT_PART}"/>
+						<Select selectedKey="{NotifItemSet/0/DlCodegrp}" items="{path: '/ObjectParts', sorter: [ {path: 'CODEGRUPPE'}] }" allowBlank="true" forceSelection="false" change="onObjectPartChange">
+							<c:Item key="{CODEGRUPPE}" text="{CODEGRUPPE} - {CODE} - {KURZTEXT}"/>
+						</Select>
+						
+						<Label text="{i18n>NOTI_SYMPTOM}"/>
+						<Select selectedKey="{NotifItemSet/0/DCodegrp}" items="{path: '/Symptoms', sorter: [ {path: 'RId'}]}" allowBlank="true" forceSelection="false" change="onSymptomChange">
+							<c:Item key="{CODEGRUPPE}" text="{CODEGRUPPE} - {CODE} - {KURZTEXT}"/>
+						</Select>
+						<Label text="{i18n>NOTIFICATIONS_NOTIFICATIONS_TEXTO}"/>
+						<TextArea
+						rows="5"
+						maxLength="40"
+						value="{NotifItemSet/0/Descript}"
+						width="100%"/>
+						<Label text="{i18n>NOTI_CAUSE}"/>
+						<Select selectedKey="{NotifItemSet/0/CauseCodeGRP}" items="{path: '/Causes', sorter: [ {path: 'CODEGRUPPE'}]}" allowBlank="true" forceSelection="false" change="onCauseChange">
+							<c:Item key="{CODEGRUPPE}" text="{CODEGRUPPE} - {CODE} - {KURZTEXT}"/>
+						</Select>
+						<Label text="{i18n>NOTIFICATION_POSITION_CAUSE_TEXT}" />
+						<TextArea
+						rows="5"
+						maxLength="40"
+						value="{NotifItemSet/0/CauseText}"
+						width="100%"/>
+					</f:content>
+					<f:toolbar>
+						<Toolbar width="100%">
+							<content>
+								<Title text="{i18n>NOTI_FORM_POSITION}" width="100%"/>
+								<ToolbarSpacer/>
+									<Button text="{i18n>NOTI_FORM_CATALOGO}" width="120px" icon="sap-icon://activity-items" press="onCatalog"/>
+								<ToolbarSpacer/>
+							</content>
+						</Toolbar>
+					</f:toolbar>
+				</f:SimpleForm>
+			</l:content>
+		</l:Grid>
+		<Table title="{i18n>NOTI_HISTORY}" id="history" items="{/NotificationHistory}" updateFinished="onHistoryUpdateFinished"
+			visible="{= !${/showHiddenNotification} }">
+			<headerToolbar>
+				<Toolbar>
+					<Title text="{i18n>NOTI_HISTORY}"/>
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column>
+					<Text text="{i18n>NOTI_IDENTIFIER}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>NOTI_DESCRIPTION}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>NOTI_TYPE}"/>
+				</Column>
+				<Column>
+					<Text text="{i18n>NOTI_DATE}"/>
+				</Column>
+			</columns>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier title="{NotifNo}"/>
+					<Text text="{ShortText}"/>
+					<Text text="{NotifType}"/>
+					<Text text="{path: 'Strmlfndate', type: 'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', source: { pattern: 'yyyyMMdd' } } }"/>
+				</cells>
+			</ColumnListItem>
+		</Table>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button id="confirm" press="handleConfirm" text="{i18n>NOTI_CREATE}" type="Accept"/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog contentWidth="25%" contentHeight="25%" showHeader="false" afterOpen="afterOpenFilter">
+		<content>
+			<Panel>
+				<content>
+					<Label text="{i18n>FILTER_BY}" design="Bold"/>
+					<SegmentedButton selectedKey="{/FilterCriteria}" width="100%">
+						<items>
+							<!-- Search by center has been deprecated. -->
+							<SegmentedButtonItem text="{i18n>WORK_CENTER}" key="WorkCenter" press="handleFilterCriteriaChange" visible="false"/>
+							<SegmentedButtonItem text="{i18n>WORK_FUNCT_LOC}" key="FuncLocSet" press="handleFilterCriteriaChange"/>
+							<SegmentedButtonItem text="{i18n>EQUIPEMENT}" key="EquipSet" press="handleFilterCriteriaChange"
+								visible="false"/>
+						</items>
+					</SegmentedButton>
+					<!-- This feature was removed and included in variant search
+					<SegmentedButton visible="{= ${/FilterCriteria} === 'EquipSet'}" selectedKey="{/FilterEquipment}" width="100%">
+						<items>
+							<SegmentedButtonItem text="{i18n>EQUIPEMENT_NR}" key="EquiNr" press="handleFilterCriteriaChange"/>
+							<SegmentedButtonItem text="{i18n>TAG}" key="EquiTag" press="handleFilterCriteriaChange"/>
+						</items>
+					</SegmentedButton> -->
+					<VBox>
+						<FlexBox direction="Row" justifyContent="Start" alignItems="Start">
+							<items>
+								<Label text="{i18n>SEARCH_TXT}" design="Bold"/>
+							</items>
+						</FlexBox>
+						<FlexBox direction="Row" justifyContent="Start" alignItems="Start">
+							<items>
+								<Input id="searchInput" type="Text" value="{/searchText}" showValueHelp="true"
+															valueHelpRequest="handleVariant" submit="handleFilterAccept" />
+								<Button icon="sap-icon://bar-code" press="onScanFilter"
+									visible="{= ${/FilterCriteria} === 'EquipSet' || ${/FilterCriteria} === 'FuncLocSet'}"></Button>
+							</items>
+						</FlexBox>
+					</VBox>
+				</content>
+			</Panel>
+			<!--<Button press="handleFilterPress" text="{i18n>SEARCH}" enabled="{=${/searchText}!==''}"/>-->
+		</content>
+		<beginButton>
+			<Button text="{i18n>ACCEPT}" press="handleFilterAccept" width="100px" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>CLOSE}" press="closeDialog" width="100px" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

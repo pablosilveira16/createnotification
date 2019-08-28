@@ -1,0 +1,21 @@
+/* Enter your custom styles here */
+
+.noBorder{
+	box-shadow: 0 0 0rem 0 rgba(0,0,0,0.3) !important;
+}
+
+.customRed {
+	background-color: red !important;
+}
+
+.customGreen {
+	background-color: green !important;
+}
+
+.customSelectedItem {
+	background-color: #6e9ecf !important;
+}
+
+.padTop {
+	padding-top: 10px;
+}

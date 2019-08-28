@@ -1,0 +1,13 @@
+{
+	"welcomeFile": "/index.html",
+	"routes": [{
+		"path": "/odata/",
+		"target": {
+			"type": "destination",
+			"name": "erpdev_odata",
+			"entryPath": "/odata/"
+		},
+		"description": "erpdev_odata"
+	}],
+	"sendWelcomeFileRedirect": true
+}

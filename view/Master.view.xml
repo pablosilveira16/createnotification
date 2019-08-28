@@ -1,0 +1,38 @@
+<mvc:View controllerName="com.blueboot.createnotification.controller.Master" displayBlock="true" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns="sap.m">
+	<Page id="page" title="{/MasterTitle}" showNavButton="true" navButtonPress="handleNavButtonPress">
+		<headerContent>
+			<Button icon="sap-icon://home" press="navHome"></Button>
+			<Button icon="sap-icon://factory" press="onContextChange"></Button>
+		</headerContent>
+		<subHeader>
+			<Bar id="searchBar">
+				<contentMiddle>
+					<SearchField id="searchField" value="{/Nada}" showRefreshButton="{device>/isNoTouch}" placeholder="{i18n>SEARCH}" search="handleSearch" width="100%"></SearchField>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<!--<PullToRefresh id="pullToRefresh" visible="{device>/isTouch}" refresh="handleRefresh" />-->
+			<List id="listEquip" mode="{device>/listMode}" noDataText="{i18n>EQUIP_NO_DATA}" itemPress="handleEquipListItemPress"
+				items="{path: '/ActualEquipments', sorter:[{path: 'Heqnr'}, {path: 'Equipment'}] }" rememberSelections="false"
+				headerText="{i18n>EQUIP_PAGE_TITLE}">
+				<StandardListItem type="Active" title="{path: 'Descript', formatter: '.formatter.handleUntranslated'}" description="{Equipment}"
+					info="{Equicatgry}"></StandardListItem>
+			</List>
+			<List id="listFuncLoc" mode="{device>/listMode}" noDataText="{i18n>FUNC_LOC_NO_DATA}" growing="true" itemPress="handleFuncLocItemPress"
+				items="{path: '/ActualFunctionalLocations', sorter:[{path: 'Posnr'}, {path: 'Functlocation'}] }" rememberSelections="false"
+				headerText="{i18n>FUNC_LOCS}">
+				<StandardListItem type="Active" title="{path: 'Descript', formatter: '.formatter.handleUntranslated'}" description="{Functlocation}"
+					info="{Category}"></StandardListItem>
+			</List>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button icon="sap-icon://refresh" press="refreshData" text="{/pendingItemsCount}" visible="{device>/isKapsel}"></Button>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://navigation-right-arrow" visible="{device>/isPhone}" press="handleFuncLocDeviceNav"></Button>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

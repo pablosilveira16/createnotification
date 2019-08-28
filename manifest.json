@@ -1,0 +1,168 @@
+{
+	"_version": "1.4.0",
+	"sap.app": {
+		"id": "com.blueboot.createnotification",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"dataSources": {
+			"mainService": {
+				"internetHost": "",
+				"uri": "/odata/sap/ZBBPMODATA_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
+		},
+		"offline": true,
+		"sourceTemplate": {
+			"id": "sap.ui.ui5-template-plugin.2masterdetail",
+			"version": "1.38.3"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://detail-view",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_bluecrystal"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "com.blueboot.createnotification.view.App",
+			"type": "XML",
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.38.0",
+			"libs": {
+				"sap.ui.core": {
+					"minVersion": "1.38.0"
+				},
+				"sap.m": {
+					"minVersion": "1.38.0"
+				},
+				"sap.ushell": {
+					"minVersion": "1.38.0"
+				},
+				"sap.collaboration": {
+					"minVersion": "1.38",
+					"lazy": true
+				}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.blueboot.createnotification.i18n.i18n"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.blueboot.createnotification.view",
+				"controlId": "splitApp",
+				"controlAggregation": "detailPages",
+				"bypassed": {
+					"target": []
+				},
+				"async": true,
+				"viewLevel": 1
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "master",
+					"target": [
+						"master"
+					]
+				},
+				{
+					"name": "notification",
+					"pattern": "Notification/{Id}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"master",
+						"notification"
+					]
+				},
+				{
+					"name": "empty",
+					"pattern": "Empty",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"master",
+						"empty"
+					]
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"viewLevel": 1,
+					"viewId": "master",
+					"controlAggregation": "masterPages",
+					"clearAggregation": false
+				},
+				"notification": {
+					"viewType": "XML",
+					"transition": "slide",
+					"controlAggregation": "detailPages",
+					"clearAggregation": true,
+					"viewName": "Notification",
+					"viewId": "notification",
+					"viewLevel": 2
+				},
+				"empty": {
+					"viewType": "XML",
+					"transition": "flip",
+					"controlAggregation": "detailPages",
+					"clearAggregation": true,
+					"viewName": "Empty",
+					"viewId": "empty",
+					"viewLevel": 2
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css",
+					"id": ""
+				}
+			]
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "",
+		"_version": "1.1.0"
+	}
+}

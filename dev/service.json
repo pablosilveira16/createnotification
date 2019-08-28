@@ -1,0 +1,8 @@
+		{
+	"logon": true,
+	"host": "mobile-h9gi8enkbb.br1.hana.ondemand.com",
+	"port": "443",
+	"https": "true",
+	"appID": "com.blueboot.createnotification",
+	"network": true
+}

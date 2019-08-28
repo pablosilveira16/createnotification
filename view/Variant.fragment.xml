@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table">
+	<Dialog contentWidth="100%" contentHeight="100%" showHeader="false" title="{i18n>Filter}">
+		<content class="overwrite-height">
+			<NavContainer id="navContainer">
+				<Page id="conditions">
+					<Button icon="sap-icon://add" type="Transparent" visible="{/AddVisible}" press="addCondition"/>
+					<f:Form editable="true">
+						<f:layout>
+							<f:ResponsiveGridLayout/>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer formElements="{/FieldConditions}">
+								<f:formElements>
+									<f:FormElement>
+										<f:fields>
+											<Select selectedKey="{Operator}" items="{ path: '/Operators', templateShareable: false }">
+												<core:Item key="{Key}" text="{Text}"/>
+											</Select>
+											<Input value="{Low}" showValueHelp="{/ShowValueHelp}" valueHelpRequest="handleValueHelp"/>
+											<Input value="{High}" showValueHelp="{/ShowValueHelp}" valueHelpRequest="handleValueHelp" visible="{= ${Operator} === 'BT'}"/>
+											<Button icon="sap-icon://sys-cancel" type="Transparent" press="removeCondition"/>
+											<Button icon="sap-icon://add" type="Transparent" visible="{Add}" press="addCondition"/>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+					<footer>
+						<Toolbar>
+							<content>
+								<ToolbarSpacer/>
+								<Button text="{i18n>Accept}" type="Emphasized" press="approveConditions"/>
+								<Button text="{i18n>Cancel}" type="Emphasized" press="cancelConditions"/>
+							</content>
+						</Toolbar>
+					</footer>
+				</Page>
+				<Page id="searchResultsPage" showNavButton="true" navButtonPress="variantBack">
+					<SearchField width="100%" placeholder="{i18n>SEARCH}" search="_handleResultsSearch"/>
+					<List items="{path: '/searchResults', sorter:[{path: 'Id'}]}" id="resultsList">
+						<ObjectListItem type="Active" press="handleVariantResultSelect" title="{Id}">
+							<attributes>
+								<ObjectAttribute text="{description}"/>
+								<ObjectAttribute text="{additionalData}"/>
+							</attributes>
+						</ObjectListItem>
+					</List>
+				</Page>
+			</NavContainer>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

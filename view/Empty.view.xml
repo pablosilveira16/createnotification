@@ -1,0 +1,4 @@
+<mvc:View xmlns:commons="sap.ui.commons" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:c="sap.ui.core" xmlns="sap.m" controllerName="com.blueboot.createnotification.controller.Empty">
+	<Page class="sapUiFioriObjectPage" showNavButton="{device>/isPhone}" navButtonPress="onNavBack"></Page>
+</mvc:View>

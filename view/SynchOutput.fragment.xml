@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog contentWidth="45%" contentHeight="80%" showHeader="false">
+		<content>
+			<NavContainer id="synchNav">
+				<Page id="sycnhMaster" title="{i18n>synchTitle}">
+					<List id="successList" items="{path: '/synchOutput/success'}" visible="{=typeof(${/synchOutput}) === 'object' &amp;&amp; ${/synchOutput/success/length} !== 0}" mode="SingleSelectMaster" noDataText="{i18n>NO_DATA}"
+						includeItemInSelection="true" rememberSelections="false" itemPress="onNavtoSynchDetail" growing="true" growingScrollToLoad="true">
+						<items>
+<!-- 							<StandardListItem title="{parts: ['oData','sPath'], formatter:'.formatter.parseMetadata'}" type="Active" press="onNavtoSynchDetail" description=""
+								icon="sap-icon://accept"></StandardListItem> -->
+								<StandardListItem title="{path: 'entityName', formatter:'.formatter.i18n'}" type="Active" press="onNavtoSynchDetail" description=""
+								icon="sap-icon://accept"></StandardListItem>
+						</items>
+					</List>
+					<List id="errorList" items="{path: '/synchOutput/error'}" visible="{=typeof(${/synchOutput}) === 'object' &amp;&amp; ${/synchOutput/error/length} !== 0}" mode="SingleSelectMaster" noDataText="{i18n>NO_DATA}"
+						includeItemInSelection="true" rememberSelections="false" itemPress="onNavtoSynchError" growing="true" growingScrollToLoad="true">
+						<items>
+							<StandardListItem title="{sPath}" type="Active" press="onNavtoSynchError" description=""
+								icon="sap-icon://decline"></StandardListItem>
+						</items>
+					</List>
+					<Panel visible="{=typeof(${/synchOutput}) === 'undefined' ||(${'/synchOutput/success/length'} === 0 &amp;&amp; ${'/synchOutput/error/length'} === 0)}">
+						<Text text="{i18n>SYNC_SUCCESS_NO_ITEMS}"/>
+					</Panel>
+					<footer>
+						<Toolbar id="synchMasterToolbar">
+							<content>
+								<ToolbarSpacer/>
+								<Button id="closeButton" text="{i18n>Close}" press="onSynchDlgClose"/>
+							</content>
+						</Toolbar>
+					</footer>
+				</Page>
+				<Page id="synchDetail" showNavButton="true" navButtonPress="onSynchNavBack" title="{i18n>synchDetailTitle}">
+					<List mode="{device>/listMode}" growing="true" items="{path: 'oDataAsArray'}" rememberSelections="false" growingScrollToLoad="true">
+						<InputListItem label="{path: 'Key', formatter: '.formatter.i18n'}">
+							<content>
+								<Text text="{path: 'Value', formatter: '.formatter.i18n'}"/>
+							</content>
+						</InputListItem>
+					</List>
+				</Page>
+			</NavContainer>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

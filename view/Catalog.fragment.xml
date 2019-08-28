@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <SelectDialog noDataText="{i18n>NO_DATA}" title="{i18n>SELECT_RBNR}" search="handleRbnrSearch" confirm="handleRbnrSelect"
+    cancel="handleClose" items="{/CatalogSet}">
+    <StandardListItem title="{RBNR}" description="{RBNRX}" type="Active"/>
+  </SelectDialog>
+</core:FragmentDefinition>

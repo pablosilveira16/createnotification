@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:t="sap.ui.table">
+	<Page id="FuncLocSet" title="{i18n>Filter}">
+		<IconTabBar id="funcLocIconTabFilter" expandable="false" expanded="true" class="sapUiResponsiveContentPadding"
+			selectedKey="{/FilterSelected}">
+			<items>
+				<IconTabFilter text="{i18n>ByBasicData}" key="BasicData">
+					<VBox>
+						<Text text="{i18n>SearchByBDDescription}"></Text>
+					</VBox>
+					<f:Form editable="true">
+						<f:layout>
+							<f:ResponsiveGridLayout/>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer>
+								<f:formElements>
+									<f:FormElement label="{/STORT/Text}">
+										<f:fields>
+											<Input type="Text" value="{/STORT/Low}" enabled="{= ${/STORT/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="10"/>
+											<Input type="Text" value="{/STORT/High}" enabled="{= ${/STORT/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="10"/>
+											<Button icon="{= ${/STORT/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement label="{/SWERK/Text}">
+										<f:fields>
+											<Input type="Text" value="{/SWERK/Low}" enabled="{= ${/SWERK/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="4"/>
+											<Input type="Text" value="{/SWERK/High}" enabled="{= ${/SWERK/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="4"/>
+											<Button icon="{= ${/SWERK/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement label="{/BEBER/Text}" visible="false">
+										<f:fields>
+											<Input type="Text" value="{/BEBER/Low}" enabled="{= ${/BEBER/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="3"/>
+											<Input type="Text" value="{/BEBER/High}" enabled="{= ${/BEBER/Conditions}.length === 0}" showValueHelp="true"
+												valueHelpRequest="handleValueHelp" maxLength="3"/>
+											<Button icon="{= ${/BEBER/Conditions}.length === 0 ? 'sap-icon://filter' : 'sap-icon://add-filter'}" type="Transparent"
+												press="navToConditions"/>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<footer>
+			<Toolbar>
+				<content>
+					<ToolbarSpacer/>
+					<Button text="{i18n>Accept}" type="Emphasized" press="acceptSearch"/>
+					<Button text="{i18n>Cancel}" type="Emphasized" press="cancelSearch"/>
+					<Button text="{i18n>Clean}" type="Emphasized" press="cleanSearch"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:FragmentDefinition>
