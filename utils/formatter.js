@@ -136,6 +136,14 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function(DateFormat) {
 				value = name;
 			}
 			return value;
+		},
+
+		pendingItemsCount: function(aPendingItems) {
+			aPendingItems = aPendingItems.filter(function(i) {
+				return !i.child;
+			});
+
+			return aPendingItems.length;
 		}
 	};
 

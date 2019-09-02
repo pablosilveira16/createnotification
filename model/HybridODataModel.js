@@ -167,7 +167,11 @@ sap.ui.define([
                             pendingItems[request.children[i]].sPath = pendingItems[request.children[i]].sPath.replace("'" + request.uid + "'", match[1]);
                         }
                         request.oData = odata;
-                        result.success.push(OutputParser.parseOutput(request));
+                        if (OutputParser.isChild(request)){
+                            OutputParser.appendChild(result.sucess, request);
+                        }else{
+                            result.success.push(OutputParser.parseOutput(request));
+                        }
                         pendingParents--;
                         if (pendingParents === 0) {
                             dfdParents.resolve();
@@ -218,8 +222,13 @@ sap.ui.define([
                     //Hago override del sucess y error con el que se guardaron
                     request.mParameters.success = $.proxy(function(request, odata, response) {
                         //var match = new URL(odata.__metadata.uri).href.split(that.sServiceUrl)[1].match(/\((.*)?\)/);
-                        //request.oData = odata;
+                        request.oData = odata;
                         result.success.push(OutputParser.parseOutput(request));
+                        if (OutputParser.isChild(request)){
+                            OutputParser.appendChild(result.sucess, request);
+                        }else{
+                            result.success.push(OutputParser.parseOutput(request));
+                        }
                         pendingItemsCount--;
                         if (pendingItemsCount === 0) {
                             localModel.setProperty("/pendingItems", [], localModel, true);
