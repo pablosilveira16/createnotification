@@ -81,9 +81,9 @@ sap.ui.define([
 			return ret;
 		},
 
-		isChild: function(){
+		isChild: function(request){
 			return this._entities.find(function(oEntity){
-				return oEntity.re.test(uri)
+				return oEntity.re.test(request.sPath)
 			}).child;		
 		},
 
