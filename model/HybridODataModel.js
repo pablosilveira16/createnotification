@@ -105,6 +105,7 @@ sap.ui.define([
                 var localModel = sap.ui.getCore().getModel();
                 var pendingItems = localModel.getProperty("/pendingItems") ? localModel.getProperty("/pendingItems") : [];
                 var pendingItemsCount = localModel.getProperty("/pendingItemsCount") ? localModel.getProperty("/pendingItemsCount") : 0;
+                var pendingParentsCount = localModel.getProperty("/pendingParentsCount") ? localModel.getProperty("/pendingParentsCount") : [];
 
                 var match = sPath.match(/\('(id-.*)?'\)/);
                 if (match && match[1]) {
@@ -113,6 +114,9 @@ sap.ui.define([
                     if (parent.length > 0 ) {
                         parent[0].children.push(pendingItems.length);
                     }
+                } else {
+                    // si no es hijo lo sumo a la cuenta
+                    pendingParentsCount++;
                 }
 
                 var uid = jQuery.sap.uid();
@@ -128,6 +132,7 @@ sap.ui.define([
 
                 localModel.setProperty("/pendingItems", pendingItems);
                 localModel.setProperty("/pendingItemsCount", pendingItemsCount);
+                localModel.setProperty("/pendingParentsCount", pendingParentsCount);
 
                 if (mParameters.success) {
                     var response = $.extend(true, {}, oData);
@@ -185,6 +190,7 @@ sap.ui.define([
                         if (pendingItemsCount === 0) {
                             localModel.setProperty("/pendingItems", [], localModel, true);
                             localModel.setProperty("/pendingItemsCount", 0, localModel, true);
+                            localModel.setProperty("/pendingParentsCount", 0);
                             localModel.setProperty("/synchOutput", result);
                             dfd.resolve();
                         }
@@ -208,6 +214,7 @@ sap.ui.define([
                         if (pendingItemsCount === 0) {
                             localModel.setProperty("/pendingItems", [], localModel, true);
                             localModel.setProperty("/pendingItemsCount", 0, localModel, true);
+                            localModel.setProperty("/pendingParentsCount", 0);
                             localModel.setProperty("/synchOutput", result);
                             dfd.resolve();
                         }
@@ -237,6 +244,7 @@ sap.ui.define([
                         if (pendingItemsCount === 0) {
                             localModel.setProperty("/pendingItems", [], localModel, true);
                             localModel.setProperty("/pendingItemsCount", 0, localModel, true);
+                            localModel.setProperty("/pendingParentsCount", 0);
                             localModel.setProperty("/synchOutput", result);
                             dfd.resolve();
                         }
@@ -248,6 +256,7 @@ sap.ui.define([
                         if (pendingItemsCount === 0) {
                             localModel.setProperty("/pendingItems", [], localModel, true);
                             localModel.setProperty("/pendingItemsCount", 0, localModel, true);
+                            localModel.setProperty("/pendingParentsCount", 0);
                             localModel.setProperty("/synchOutput", result);
                             dfd.resolve();
                         }
