@@ -415,8 +415,8 @@ sap.ui.define([
             oDataModel.fireRequestFailed(oError);
             dfdEquip.reject();
           },
-          filters: [new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.EQ, sValue.substring(0, 18)), new sap.ui.model.Filter(
-            "Planplant", sap.ui.model.FilterOperator.EQ, oPlant.Werks)]
+          filters: [new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.Contains, sValue.substring(0, 18)), new sap.ui.model.Filter(
+            "Planplant", sap.ui.model.FilterOperator.Contains, oPlant.Werks)]
         });
         oDataModel.read("/FuncLocSet", {
           success: function (oData, response) {
@@ -429,8 +429,8 @@ sap.ui.define([
             oDataModel.fireRequestFailed(oError);
             dfdFuncLoc.reject();
           },
-          filters: [new sap.ui.model.Filter("Functlocation", sap.ui.model.FilterOperator.EQ, sValue.substring(0, 30)), new sap.ui.model.Filter(
-            "Planplant", sap.ui.model.FilterOperator.EQ, oPlant.Werks)]
+          filters: [new sap.ui.model.Filter("Functlocation", sap.ui.model.FilterOperator.Contains, sValue.substring(0, 30)), new sap.ui.model.Filter(
+            "Planplant", sap.ui.model.FilterOperator.Contains, oPlant.Werks)]
         });
         $.when(dfdEquip, dfdFuncLoc).always(function () {
           oBusyDialog.close();
