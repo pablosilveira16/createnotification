@@ -33,7 +33,7 @@
 				 	enabled="{= ${/pendingItemsCount} > 0}"  
 					icon="sap-icon://refresh" 
 					press="refreshData" 
-					text="{ path: '/pendingItems', formatter: '.formatter.pendingItemsCount'}" 
+					text="{pendingParentsCount}" 
 					visible="{device>/isKapsel}"></Button>
 				<ToolbarSpacer/>
 				<Button icon="sap-icon://navigation-right-arrow" visible="{device>/isPhone}" press="handleFuncLocDeviceNav"></Button>

@@ -17,6 +17,7 @@ sap.ui.define([
             try {
                 var localModel = sap.ui.getCore().getModel();
                 var pendingItems = localModel.getProperty("/pendingItems") ? localModel.getProperty("/pendingItems") : [];
+                var pendingParentsCount = localModel.getProperty("/pendingParentsCount") ? localModel.getProperty("/pendingParentsCount") : [];
                 var pendingItemsCount = localModel.getProperty("/pendingItemsCount") ? localModel.getProperty("/pendingItemsCount") : 0;
 
                 var match = sPath.match(/\('(id-.*)?'\)/);
@@ -26,6 +27,9 @@ sap.ui.define([
                     if (parent.length > 0 ) {
                         parent[0].children.push(pendingItems.length);
                     }
+                } else {
+                    // si no es hijo lo sumo a la cuenta
+                    pendingParentsCount++;
                 }
 
                 var uid = jQuery.sap.uid();
@@ -41,6 +45,7 @@ sap.ui.define([
 
                 localModel.setProperty("/pendingItems", pendingItems);
                 localModel.setProperty("/pendingItemsCount", pendingItemsCount);
+                localModel.setProperty("/pendingParentsCount", pendingParentsCount);
 
                 if (mParameters.success) {
                     var response = $.extend(true, {}, oData);
@@ -223,7 +228,6 @@ sap.ui.define([
                     request.mParameters.success = $.proxy(function(request, odata, response) {
                         //var match = new URL(odata.__metadata.uri).href.split(that.sServiceUrl)[1].match(/\((.*)?\)/);
                         request.oData = odata;
-                        result.success.push(OutputParser.parseOutput(request));
                         if (OutputParser.isChild(request)){
                             OutputParser.appendChild(result.sucess, request);
                         }else{
