@@ -21,5 +21,9 @@
 }
 
 .busyImage {
-	background-image: url("../img/brand.jpg");
+	background-image: url("../img/brand.jpg") !important;
+}
+
+.sapUiLocalBusyIndicator {
+	background-image: url("../img/brand.jpg") !important;	
 }
