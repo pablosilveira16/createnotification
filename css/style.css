@@ -22,8 +22,10 @@
 
 .busyImage {
 	background-image: url("../img/brand.jpg") !important;
+	background-size: 100% 100%;
 }
 
 .sapUiLocalBusyIndicator {
-	background-image: url("../img/brand.jpg") !important;	
+	background-image: url("../img/brand.jpg") !important;
+	background-size: 100% 100%;
 }
