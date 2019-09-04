@@ -19,3 +19,7 @@
 .padTop {
 	padding-top: 10px;
 }
+
+.busyImage {
+	background-image: url("../img/brand.jpg");
+}
