@@ -40,6 +40,7 @@ sap.ui.define([
       var oEventBus = sap.ui.getCore().getEventBus();
       oEventBus.subscribe("CreateNotification", "onNavBack", jQuery.proxy(this.handleNavButtonPress, this), this);
       oEventBus.subscribe("MasterController", "navBack", jQuery.proxy(this.handleNavButtonPress, this), this);
+      document.addEventListener("backbutton", this.backButtonPress, false);
 
       if (!this.isOfflineStoreCreated() && !this.isOfflineStoreOpened()) {
         this.onConfig();
@@ -54,9 +55,24 @@ sap.ui.define([
       }
     },
 
+    backButtonPress: function() {
+      sap.m.MessageBox.confirm(sap.ui.getCore().getModel("i18n").getResourceBundle().getText("EXIT_APP"), {
+        onClose: function(sAction) {
+          if (sAction === sap.m.MessageBox.Action.OK) {
+            navigator.app.exitApp();
+          }
+        }
+      });
+    },
+
     onContextChange: function () {
-      var eventBus = sap.ui.getCore().getEventBus();
-      eventBus.publish("OfflineStore", "ContextChange");
+      var localModel = sap.ui.getCore().getModel(),
+        bContextChanging = localModel.getProperty("/ContextChanging");
+      if (!bContextChanging) {
+        var eventBus = sap.ui.getCore().getEventBus();
+        eventBus.publish("OfflineStore", "ContextChange");
+        localModel.setProperty("/ContextChanging", true);
+      }
     },
 
     setOfflineContext: function (mParameters) {

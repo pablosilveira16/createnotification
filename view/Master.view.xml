@@ -2,7 +2,7 @@
 	xmlns:core="sap.ui.core" xmlns="sap.m" busyIndicatorDelay="0">
 	<Page id="page" title="{/MasterTitle}" showNavButton="true" navButtonPress="handleNavButtonPress">
 		<headerContent>
-			<Button icon="sap-icon://home" press="navHome"></Button>
+			<Button icon="sap-icon://home" press="navHome" visible="false"></Button>
 			<Button icon="sap-icon://factory" press="onContextChange"></Button>
 		</headerContent>
 		<subHeader>

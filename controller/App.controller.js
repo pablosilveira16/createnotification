@@ -64,6 +64,8 @@ sap.ui.define([
 			$.when(offline.deleteAppOfflineStore()).then(
 				function() {
 					that.appStart();
+					var localModel = sap.ui.getCore().getModel();
+					localModel.setProperty("/ContextChanging", false);
 				}
 			);
 		},

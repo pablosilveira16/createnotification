@@ -35,7 +35,7 @@
 					<List mode="{device>/listMode}" growing="true" items="{path: 'oDataAsArray'}" rememberSelections="false" growingScrollToLoad="true">
 						<InputListItem label="{path: 'Key', formatter: '.formatter.i18n'}">
 							<content>
-								<Text text="{path: 'Value', formatter: '.formatter.i18n'}"/>
+								<Text text="{parts[{path: 'Key'},{path: 'Value'}], formatter: '.formatter.outputValue'}"/>
 							</content>
 						</InputListItem>
 					</List>

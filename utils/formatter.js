@@ -136,6 +136,25 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function(DateFormat) {
 				value = name;
 			}
 			return value;
+		},
+
+		outputValue: function(key, value) {
+			switch (key) {
+				case "NOTI_DES_START_DATE":
+				case "NOTI_DES_END_DATE":
+				case "NOTI_START_DATE":
+					var oDateFormat = DateFormat.getDateTimeInstance({ pattern: "yyyy/MM/dd" }),
+                		oSourceDateFormat = DateFormat.getDateTimeInstance({ pattern: "yyyyMMdd" });
+					return oDateFormat.format(oSourceDateFormat.parse(value));
+				case "NOTI_DES_START_TIME":
+				case "NOTI_DES_END_TIME":
+				case "NOTI_START_TIME":
+					var oTimeFormat = DateFormat.getTimeInstance({ pattern: "HH:mm:ss" }),
+                		oSourceTimeFormat = DateFormat.getTimeInstance({ pattern: "HHmmss" });
+					return oTimeFormat.format(oSourceTimeFormat.parse(value));
+				default:
+					return value;
+			}
 		}
 	};
 
