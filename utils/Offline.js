@@ -187,6 +187,8 @@ sap.ui.define([
 							title: sap.ui.getCore().getModel("i18n").getResourceBundle().getText("OFFLINE_STORE_CHANGE_TITLE"),
 							actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
 							onClose: function(bResult) {
+								var localModel = sap.ui.getCore().getModel();
+								localModel.setProperty("/ContextChanging", false);
 							if (sap.m.MessageBox.Action.YES === bResult) {
 								if (that.appOfflineStore.store) {
 									that.appOfflineStore.store.close(
