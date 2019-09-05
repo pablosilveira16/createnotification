@@ -1,6 +1,6 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:c="sap.ui.core" xmlns="sap.m"
 	controllerName="com.blueboot.createnotification.controller.Notification">
-	<Page class="sapUiFioriObjectPage" title="{i18n>NOTI_PAGE_TITLE}" showNavButton="{device>/isPhone}" navButtonPress="handleNavButtonPress">
+	<Page class="sapUiFioriObjectPage" title="{i18n>NOTI_PAGE_TITLE}" showNavButton="{device>/isPhone}" navButtonPress="handleNavButtonPress" backgroundDesign="Solid">
 		<!--
     <headerContent>
       <Button icon="sap-icon://delete" press="handleDeleteData"></Button>
