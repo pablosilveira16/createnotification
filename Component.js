@@ -30,7 +30,7 @@ sap.ui.define([
 			models.createDeviceModel(this);
 
 			// Control de screen background
-			oAppMetaModel.setProperty("/Loading", true);
+			//oAppMetaModel.setProperty("/Loading", true);
 			var oBDialog = new sap.m.BusyDialog();
 			oBDialog.open();			
 
@@ -93,12 +93,12 @@ sap.ui.define([
 					that.getRouter().initialize();
 
 					oBDialog.close();
-					oAppMetaModel.setProperty("/Loading", false);
+					//oAppMetaModel.setProperty("/Loading", false);
 				},
 				function(err) {
 					oBDialog.close();
-					oAppMetaModel.setProperty("/Loading", false);
-					
+					//oAppMetaModel.setProperty("/Loading", false);
+
 					var i18n = sap.ui.getCore().getModel("i18n").getResourceBundle();
 					var msgTitle = i18n.getText("ODataErrorTitle");
 					var msg = i18n.getText(err);
