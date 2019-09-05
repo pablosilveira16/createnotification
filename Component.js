@@ -29,7 +29,6 @@ sap.ui.define([
 			models.createDeviceModel(this);
 
 			var oBDialog = new sap.m.BusyDialog();
-			oBDialog.addStyleClass("busyImage");
 			oBDialog.open();
 
 			var dfdInit = $.Deferred();
