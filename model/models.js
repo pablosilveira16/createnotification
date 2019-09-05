@@ -14,9 +14,10 @@ sap.ui.define([
 		},
 
 		createSapAppModel: function (component) {
-			var sapApp = component.getMetadata().getManifestEntry("sap.app");
-			sap.ui.getCore().setModel(new JSONModel(sapApp), "sapApp");
-			return sapApp;
+			var sapApp = component.getMetadata().getManifestEntry("sap.app"),
+				oSapAppModel = new JSONModel(sapApp);
+			sap.ui.getCore().setModel(oSapAppModel, "sapApp");
+			return oSapAppModel;
 		},
 
 		createDeviceModel: function (component) {

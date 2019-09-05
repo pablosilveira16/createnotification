@@ -23,13 +23,14 @@ sap.ui.define([
 			};
 			var sServiceUrl = "";
 
-			var appMeta = models.createSapAppModel(this);
+			var oAppMetaModel = models.createSapAppModel(this),
+				appMeta = oAppMetaModel.oData;
 			var sModulePath = appMeta.id;
 			offline.i18n = models.createI18NModel(sModulePath).getResourceBundle();
 			models.createDeviceModel(this);
 
 			// Control de screen background
-			appMeta.setProperty("/Loading", true);
+			oAppMetaModel.setProperty("/Loading", true);
 			var oBDialog = new sap.m.BusyDialog();
 			oBDialog.open();			
 
@@ -92,11 +93,12 @@ sap.ui.define([
 					that.getRouter().initialize();
 
 					oBDialog.close();
-					appMeta.setProperty("/Loading", false);
+					oAppMetaModel.setProperty("/Loading", false);
 				},
 				function(err) {
 					oBDialog.close();
-					appMeta.setProperty("/Loading", false);
+					oAppMetaModel.setProperty("/Loading", false);
+					
 					var i18n = sap.ui.getCore().getModel("i18n").getResourceBundle();
 					var msgTitle = i18n.getText("ODataErrorTitle");
 					var msg = i18n.getText(err);
