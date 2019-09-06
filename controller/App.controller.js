@@ -125,6 +125,7 @@ sap.ui.define([
 
 		onRefreshing: function() {
 			if (document.URL.indexOf("http://") === -1 && document.URL.indexOf("https://") === -1) {
+				this.getView().setBusy(true);
 				if (offline.flushAppOfflineStore() === -1){
 					//No hay conexion. Ya se desplego un messagebox en Offline.js
 					this.getView().setBusy(false);
