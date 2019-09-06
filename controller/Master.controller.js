@@ -115,6 +115,7 @@ sap.ui.define([
                       setTimeout(function() {
                           var oEventBus = sap.ui.getCore().getEventBus();
                           oEventBus.publish("OfflineStore", "Refreshing");
+                          that.getView().setBusy(false);
                       }, 100);
                     }, function() {
                       that.getView().setBusy(false);
