@@ -259,6 +259,11 @@ sap.ui.define([
 						dfd.reject();
 					}
 				);
+			} else {
+				sap.m.MessageBox.show(this.i18n.getText("NO_CONNECTION"), {
+					icon: sap.m.MessageBox.Icon.WARNING
+				});
+				dfd.reject();
 			}
 			return dfd;
 		},

@@ -21,6 +21,10 @@ sap.ui.define([
 				"path": "/pendingItems",
 				"defaultValue": []
 			},
+			"pendingParentsCount": {
+				"path": "/pendingParentsCount",
+				"defaultValue": 0
+			},
 			"pendingItemsCount": {
 				"path": "/pendingItemsCount",
 				"defaultValue": 0
