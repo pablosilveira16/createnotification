@@ -413,53 +413,39 @@ sap.ui.define([
                 that.getView().byId("pullToRefresh").hide();
             }, 200);
         },
-        handleSearch: function(oEvent) {
-            var sValue = oEvent.getParameter("query");
-            if (sValue) {
-                var localModel = sap.ui.getCore().getModel();
-                var oDataModel = sap.ui.getCore().getModel("oDataModel");
-                var oPlant = localModel.getProperty("/ActualPlant");
-                var dfdEquip = $.Deferred();
-                var dfdFuncLoc = $.Deferred();
-                var that = this;
-                var oBusyDialog = new sap.m.BusyDialog();
-                oBusyDialog.open();
-                sValue = sValue.toUpperCase();
-                //Los equipos se filtran con un substring de 0 a 18 por que el EQUNR es de 18 y el TPLNR de 30
-                oDataModel.read("/EquipSet", {
-                    success: function(oData, response) {
-                        var aActualEquipments = oData.results;
-                        localModel.setProperty("/ActualEquipments", aActualEquipments, localModel, true);
-                        dfdEquip.resolve();
-                    },
-                    error: function(oError) {
-                        oError.customMessage = that._oBundle.getText("SOMETHING_HAS_HAPPENED");
-                        oDataModel.fireRequestFailed(oError);
-                        dfdEquip.reject();
-                    },
-                    filters: [new sap.ui.model.Filter("Equipment", sap.ui.model.FilterOperator.Contains, sValue.substring(0, 18)), new sap.ui.model.Filter(
-                        "Planplant", sap.ui.model.FilterOperator.Contains, oPlant.Werks)]
-                });
-                oDataModel.read("/FuncLocSet", {
-                    success: function(oData, response) {
-                        var aActualFuncLocs = oData.results;
-                        localModel.setProperty("/ActualFunctionalLocations", aActualFuncLocs, localModel, true);
-                        dfdFuncLoc.resolve();
-                    },
-                    error: function(oError) {
-                        oError.customMessage = that._oBundle.getText("SOMETHING_HAS_HAPPENED");
-                        oDataModel.fireRequestFailed(oError);
-                        dfdFuncLoc.reject();
-                    },
-                    filters: [new sap.ui.model.Filter("Functlocation", sap.ui.model.FilterOperator.Contains, sValue.substring(0, 30)), new sap.ui.model.Filter(
-                        "Planplant", sap.ui.model.FilterOperator.Contains, oPlant.Werks)]
-                });
-                $.when(dfdEquip, dfdFuncLoc).always(function() {
-                    oBusyDialog.close();
-                });
-            } else {
-                this._bindLists("");
+        handleSearch: function (oEvent) {
+          var sValue = oEvent.getParameter("query");
+          if (sValue) {
+            // Replico la logica de la funcion BindLists para obtener el listado actual y de ahí filtro los que contengan el texto buscado
+            // No está bonito
+            var localModel = sap.ui.getCore().getModel();
+            var aEquipments = localModel.getProperty("/Equipments");
+            var aFuncLocations = localModel.getProperty("/FunctionalLocations");
+            var sCurrentId = this._currentId,
+                rootElement = localModel.getProperty("/RootElement");
+            if (sCurrentId === "") {
+                sCurrentId = rootElement;
             }
+            aEquipments = aEquipments.filter(function (x) {
+              return x.Functlocation === sCurrentId;
+            });
+            aEquipments = aEquipments.filter(function(item) {
+                return item.Descript.toLowerCase().indexOf(sValue.toLowerCase()) !== -1 || 
+                    item.Equipment.toLowerCase().indexOf(sValue.toLowerCase()) !== -1;
+            });
+            aFuncLocations = aFuncLocations.filter(function (x) {
+              return x.Supfloc === sCurrentId;
+            });
+            aFuncLocations = aFuncLocations.filter(function(item) {
+                return item.Descript.toLowerCase().indexOf(sValue.toLowerCase()) !== -1 || 
+                    item.Functlocation.toLowerCase().indexOf(sValue.toLowerCase()) !== -1;
+            });
+
+            localModel.setProperty("/ActualFunctionalLocations", aFuncLocations);
+            localModel.setProperty("/ActualEquipments", aEquipments);
+          } else {
+            this._bindLists("");
+          }
         },
         handleFuncLocItemPress: function(oEvent) {
             var oItem = oEvent.getParameter("listItem"),
@@ -636,6 +622,7 @@ sap.ui.define([
             var field = sPath && sPath.split("/") ? sPath.split("/")[1] : "";
             if (sPath === "Low" || sPath === "High") {
                 field = localModel.getProperty("/IndexField").replace("/", "");
+                sPath = oEvent.getSource().getBindingContext().getPath() + "/" + sPath;
             }
             localModel.setProperty("/IndexFieldsPath", sPath, localModel, true);
 
